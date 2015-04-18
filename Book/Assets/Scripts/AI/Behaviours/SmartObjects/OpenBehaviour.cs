@@ -14,7 +14,6 @@ public class OpenBehaviour : SmartObjectBehaviour
 
     IEnumerator WaitForDoorToOpen(float duration)
     {
-        Debug.Log(duration);
         yield return new WaitForSeconds(duration);
         action.IsComplete = true;
     }

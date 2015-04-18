@@ -31,8 +31,10 @@ public class Agent : MonoBehaviour
     void Start()
     {
         defaultBehaviour.ApplyBehaviour();
-        UseSmartObjectBehaviour[] smo = GetComponents<UseSmartObjectBehaviour>();
-        smo[1].ApplyBehaviour();
+        //UseSmartObjectBehaviour[] smo = GetComponents<UseSmartObjectBehaviour>();
+        //smo[1].ApplyBehaviour();
+        //KillAgentBehavior ags = GetComponent<KillAgentBehavior>();
+        //ags.ApplyBehaviour();
     }
 	
 	void Update() 
