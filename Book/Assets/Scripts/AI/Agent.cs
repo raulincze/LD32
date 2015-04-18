@@ -14,8 +14,7 @@ public class Agent : MonoBehaviour
     private GameObject thisGameObject;
     public NavMeshAgent navMeshAgent;
 
-    public AgentBehaviour[] possibleBehaviours;
-    public string[] behaviourStrings;
+    public List<AcceptableBehaviour> possibleBehaviours;
 
     private PriorityQueue<Action> actionQueue;
 
@@ -113,5 +112,27 @@ public class Agent : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<Rigidbody>().isKinematic = false;
         transform.Rotate(transform.forward, 5f);
+    }
+
+    public void UseBehaviour(AcceptableBehaviour toBeUsed)
+    {
+        toBeUsed.behaviour.ApplyBehaviour();
+        if (toBeUsed.useOnce)
+        {
+            possibleBehaviours.Remove(toBeUsed);
+        }
+    }
+}
+
+[System.Serializable]
+public class AcceptableBehaviour
+{
+    public AgentBehaviour behaviour;
+    public string description;
+    public bool useOnce = false;
+
+    public override string ToString()
+    {
+        return description;
     }
 }

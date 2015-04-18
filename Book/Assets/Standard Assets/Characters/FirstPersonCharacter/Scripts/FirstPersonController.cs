@@ -178,6 +178,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void UpdateCameraPosition(float speed)
         {
             Vector3 newCameraPosition;
+            speed *= Time.timeScale;
             if (!m_UseHeadBob)
             {
                 return;

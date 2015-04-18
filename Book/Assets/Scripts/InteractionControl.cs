@@ -6,14 +6,23 @@ public class InteractionControl : MonoBehaviour
     public Color hoverColor;
     private Transform lastHitObject;
     private Color initialColor;
+    private Agent hitAgent;
+
+    void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     void Update () 
     {
         RaycastHit hitInfo;
-        Physics.Raycast(transform.position, transform.forward, out hitInfo, 20f);
+        var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Physics.Raycast(ray, out hitInfo, 30f);
+      
         if (hitInfo.transform != null)
         {
             
-            Agent hitAgent = hitInfo.transform.GetComponent<Agent>();
+            hitAgent = hitInfo.transform.GetComponent<Agent>();
             if (hitAgent != null)
             {
                 if (lastHitObject != hitInfo.transform)
@@ -36,6 +45,29 @@ public class InteractionControl : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (HUDManager.Instance.IsShowingUI)
+            {
+                HUDManager.Instance.HideAllPanels();
+            }
+            else
+            {
+                HUDManager.Instance.ShowMenu();
+            }
+        }
 	}
+
+    void FixedUpdate()
+    {
+        if (hitAgent != null)
+        {
+            if (Input.GetMouseButtonUp(0) && !HUDManager.Instance.IsShowingUI && !(hitAgent.CurrentState is Dead))
+            {
+                HUDManager.Instance.ShowActionMenu(hitAgent);
+            }
+        }
+    }
 
 }

@@ -13,6 +13,7 @@ public class ChasePlayerBehaviour : AgentBehaviour
         newAction.target = target;
         newAction.actionPriority = 100;
         newAction.distanceToTarget = 0.1f;
+        newAction.speedMultiplier = 2f;
         Owner.ScheduleNewAction(newAction);
         GoToIdleAction newIdleAction = Owner.gameObject.AddComponent<GoToIdleAction>();
         Owner.ScheduleNewAction(newIdleAction);
