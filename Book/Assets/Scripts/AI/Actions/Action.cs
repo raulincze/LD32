@@ -16,7 +16,7 @@ public class Action : MonoBehaviour, System.IComparable<Action>
         } 
     }
 
-    public bool IsComplete { get; protected set; }
+    public bool IsComplete { get; set; }
 
     public int actionPriority = 50;
 

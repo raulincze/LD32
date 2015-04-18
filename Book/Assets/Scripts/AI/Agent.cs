@@ -23,6 +23,11 @@ public class Agent : MonoBehaviour
         stateMachine = new StateMachine(new Idle(thisGameObject));
         actionQueue = new PriorityQueue<Action>();
         defaultBehaviour.ApplyBehaviour();
+        AgentBehaviour aga = GetComponent<UseSmartObjectBehaviour>();
+        if (aga != null)
+        {
+            aga.ApplyBehaviour();
+        }
     }
 	
 	void Update() 

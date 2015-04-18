@@ -1,15 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SmartObject : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public class SmartObject : MonoBehaviour 
+{
+    public SmartObjectBehaviour[] behaviours;
+    public string[] actionStrings;
 }
