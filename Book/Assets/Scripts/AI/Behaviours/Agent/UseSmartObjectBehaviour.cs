@@ -10,7 +10,7 @@ public class UseSmartObjectBehaviour : AgentBehaviour
     {
         GoToAction newAction = Owner.gameObject.AddComponent<GoToAction>();
         newAction.target = smartObject.transform;
-        newAction.actionPriority = 50;
+        newAction.actionPriority = 60;
         newAction.distanceToTarget = 1f;
         Owner.ScheduleNewAction(newAction);
         UseSmartObjectAction newSOAction = Owner.gameObject.AddComponent<UseSmartObjectAction>();

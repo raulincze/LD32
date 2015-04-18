@@ -14,6 +14,9 @@ public class Agent : MonoBehaviour
     private GameObject thisGameObject;
     public NavMeshAgent navMeshAgent;
 
+    public AgentBehaviour[] possibleBehaviours;
+    public string[] behaviourStrings;
+
     private PriorityQueue<Action> actionQueue;
 
     void Awake()
@@ -22,16 +25,20 @@ public class Agent : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         stateMachine = new StateMachine(new Idle(thisGameObject));
         actionQueue = new PriorityQueue<Action>();
+      
+    }
+
+    void Start()
+    {
         defaultBehaviour.ApplyBehaviour();
-        AgentBehaviour aga = GetComponent<UseSmartObjectBehaviour>();
-        if (aga != null)
-        {
-            aga.ApplyBehaviour();
-        }
+        UseSmartObjectBehaviour[] smo = GetComponents<UseSmartObjectBehaviour>();
+        smo[1].ApplyBehaviour();
     }
 	
 	void Update() 
     {
+        if (CurrentState is Dead)
+            return;
         if (CurrentAction != null)
         {
             if (CurrentAction.EvaluateCompletion())
@@ -84,6 +91,8 @@ public class Agent : MonoBehaviour
 
     public void SwitchState(State newState)
     {
+        if (CurrentState is Dead)
+            return;
         stateMachine.SwitchState(newState);
     }
 
@@ -93,5 +102,14 @@ public class Agent : MonoBehaviour
         {
             chasePlayerBehaviour.ApplyBehaviour();
         }
+    }
+
+    internal void Die()
+    {
+        StopAllCoroutines();
+        navMeshAgent.enabled = false;
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().isKinematic = false;
+        transform.Rotate(transform.forward, 5f);
     }
 }

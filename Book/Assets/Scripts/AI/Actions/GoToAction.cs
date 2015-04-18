@@ -15,7 +15,7 @@ public class GoToAction : Action
 
     IEnumerator FollowTarget()
     {
-        while (!EvaluateCompletion())
+        while (!EvaluateCompletion() && owner.navMeshAgent.enabled)
         {
             owner.navMeshAgent.SetDestination(target.position);
             yield return new WaitForSeconds(targetRefreshRate);
