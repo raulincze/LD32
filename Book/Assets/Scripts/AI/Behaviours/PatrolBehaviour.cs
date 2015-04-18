@@ -12,7 +12,7 @@ public class PatrolBehaviour : AgentBehaviour
 
     IEnumerator RepeatAddActions()
     {
-        while (true)
+        while (true && this != null)
         {
             if (Owner.ScheduledActionsCount < wayPoints.Length)
             {
@@ -29,6 +29,7 @@ public class PatrolBehaviour : AgentBehaviour
             GoToAction newAction = Owner.gameObject.AddComponent<GoToAction>();
             newAction.target = t;
             newAction.actionPriority = 0;
+            newAction.distanceToTarget = 0.4f;
             Owner.ScheduleNewAction(newAction);
         }
     }

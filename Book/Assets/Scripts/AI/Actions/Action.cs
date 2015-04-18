@@ -22,7 +22,7 @@ public class Action : MonoBehaviour, System.IComparable<Action>
 
     public int CompareTo(Action obj)
     {
-        return this.Priority - obj.Priority;
+        return obj.Priority - this.Priority;
     }
 
     void Awake()

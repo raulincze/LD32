@@ -8,6 +8,7 @@ public class Agent : MonoBehaviour
     public Action CurrentAction { get; private set; }
     public int ScheduledActionsCount { get { return actionQueue.Count(); } }
     public AgentBehaviour defaultBehaviour;
+    public AgentBehaviour chasePlayerBehaviour;
 
     private StateMachine stateMachine;
     private GameObject thisGameObject;
@@ -39,6 +40,10 @@ public class Agent : MonoBehaviour
             {
                 ExecuteNextAction();
             }
+            else
+            {
+                defaultBehaviour.ApplyBehaviour();
+            }
         }
 	}
 
@@ -50,6 +55,13 @@ public class Agent : MonoBehaviour
     public void ScheduleNewAction(Action action)
     {
         actionQueue.Enqueue(action);
+        if (CurrentAction != null)
+        {
+            if (action.Priority > CurrentAction.Priority)
+            {
+                ExecuteNextAction();
+            }
+        }
     }
 
     public void ExecuteNextAction()
@@ -68,5 +80,13 @@ public class Agent : MonoBehaviour
     public void SwitchState(State newState)
     {
         stateMachine.SwitchState(newState);
+    }
+
+    public void TransformInSight(Transform t)
+    {
+        if (t.CompareTag("Player") && chasePlayerBehaviour!=null)
+        {
+            chasePlayerBehaviour.ApplyBehaviour();
+        }
     }
 }
