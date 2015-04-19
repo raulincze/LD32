@@ -17,9 +17,12 @@ public class GoToAction : Action
 
     IEnumerator FollowTarget()
     {
-        while (!EvaluateCompletion() && owner.navMeshAgent.enabled)
+        while (!EvaluateCompletion())
         {
-            owner.navMeshAgent.SetDestination(target.position);
+            if (owner.navMeshAgent.enabled)
+            {
+                owner.navMeshAgent.SetDestination(target.position);
+            }
             yield return new WaitForSeconds(targetRefreshRate);
         }
     }

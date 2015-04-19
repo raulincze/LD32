@@ -9,7 +9,7 @@ public class Agent : MonoBehaviour
     public int ScheduledActionsCount { get { return actionQueue.Count(); } }
     public AgentBehaviour defaultBehaviour;
     public AgentBehaviour chasePlayerBehaviour;
-
+    public Action currentAction;
     private StateMachine stateMachine;
     private GameObject thisGameObject;
     public NavMeshAgent navMeshAgent;
@@ -38,6 +38,7 @@ public class Agent : MonoBehaviour
 	
 	void Update() 
     {
+        currentAction = CurrentAction;
         if (CurrentState is Dead)
             return;
         if (CurrentAction != null)
