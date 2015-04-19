@@ -12,10 +12,10 @@ public class ChasePlayerBehaviour : AgentBehaviour
         GoToAction newAction = Owner.gameObject.AddComponent<GoToAction>();
         newAction.target = target;
         newAction.actionPriority = 100;
-        newAction.distanceToTarget = 0.1f;
+        newAction.distanceToTarget = 0.8f;
         newAction.speedMultiplier = 2f;
         Owner.ScheduleNewAction(newAction);
-        GoToIdleAction newIdleAction = Owner.gameObject.AddComponent<GoToIdleAction>();
+        KillPlayerAction newIdleAction = Owner.gameObject.AddComponent<KillPlayerAction>();
         Owner.ScheduleNewAction(newIdleAction);
     }
 }
