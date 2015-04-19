@@ -8,10 +8,21 @@ public class NarrativeNode : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            foreach (MessageBoxMessage m in messages)
+            for (int i=0 ; i<messages.Length; i++)
             {
-                HUDManager.Instance.ShowMessage(m);
+                if (i == 0)
+                {
+                    messages[i].Message = "\n\n" + messages[i].Message;
+                }
+                if (i == messages.Length - 1)
+                {
+                    messages[i].Message += "\n\n";
+                }
+
+                HUDManager.Instance.ShowMessage(messages[i]);
             }
+
+            gameObject.SetActive(false);
         }
     }
 }

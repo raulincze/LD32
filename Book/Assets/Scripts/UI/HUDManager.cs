@@ -57,9 +57,16 @@ public class HUDManager : MonoBehaviour
         while(queuedMessages.Count > 0)
         {
             MessageBoxMessage msg = queuedMessages.Peek();
-            textMessageBox.text = msg.Message;
+            textMessageBox.text = "";
+            float timeToAnimate = msg.Duration / 2f;
+            float timeToWait = timeToAnimate / msg.Message.Length;
             allTheText += " " + msg.Message;
-            yield return new WaitForSeconds(msg.Duration);
+            for(int i=0; i<msg.Message.Length; i++)
+            {
+                textMessageBox.text += msg.Message[i];
+                yield return new WaitForSeconds(timeToWait);
+            }
+            yield return new WaitForSeconds(msg.Duration / 2f);
             queuedMessages.Dequeue();
         }
         messageBox.gameObject.SetActive(false);
