@@ -31,7 +31,7 @@ public class HUDManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        allTheText = "It's like it has always been there... The book... Tied to his hands...\n\nasdad";
+        allTheText = "It's like it has always been there... The book... Tied to his hands...\n\n";
         queuedMessages = new Queue<MessageBoxMessage>();
     }
 
