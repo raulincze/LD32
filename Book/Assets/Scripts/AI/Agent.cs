@@ -122,6 +122,7 @@ public class Agent : MonoBehaviour
         {
             possibleBehaviours.Remove(toBeUsed);
         }
+        HUDManager.Instance.ShowMessage(toBeUsed.resultingPhrase);
     }
 }
 
@@ -130,6 +131,7 @@ public class AcceptableBehaviour
 {
     public AgentBehaviour behaviour;
     public string description;
+    public MessageBoxMessage resultingPhrase;
     public bool useOnce = false;
 
     public override string ToString()

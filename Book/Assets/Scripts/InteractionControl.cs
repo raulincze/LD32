@@ -57,17 +57,27 @@ public class InteractionControl : MonoBehaviour
                 HUDManager.Instance.ShowMenu();
             }
         }
+        if (Input.GetMouseButtonUp(1))
+        {
+            HUDManager.Instance.HideActionMenu();
+        }
 	}
 
     void FixedUpdate()
     {
-        if (hitAgent != null)
+        if (Input.GetMouseButtonUp(0) && !HUDManager.Instance.IsShowingUI)
         {
-            if (Input.GetMouseButtonUp(0) && !HUDManager.Instance.IsShowingUI && !(hitAgent.CurrentState is Dead))
+            if (hitAgent != null)
             {
-                HUDManager.Instance.ShowActionMenu(hitAgent);
+                if (hitAgent.CurrentState is Dead)
+                {
+                    HUDManager.Instance.OpenBook(null);
+                    return;
+                }
             }
+            HUDManager.Instance.OpenBook(hitAgent);
         }
+        
     }
 
 }
